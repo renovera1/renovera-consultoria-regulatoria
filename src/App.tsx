@@ -3,6 +3,7 @@ import LiveEditor from "./LiveEditor";
 
 const whatsappLink =
   "https://wa.me/5500000000000?text=Ol%C3%A1%2C%20quero%20uma%20an%C3%A1lise%20regulat%C3%B3ria%20da%20Renovera%20sobre%20um%20caso%20de%20energia.";
+const logoSrc = `${import.meta.env.BASE_URL}logo-renovera.png`;
 
 const services = [
   {
@@ -100,7 +101,7 @@ function App() {
       <header className="header">
         <div className="container headerInner">
           <a href="#inicio" className="brand" aria-label="Renovera Consultoria Regulatória">
-            <img src="/logo-renovera.png" alt="Renovera" />
+            <img src={logoSrc} alt="Renovera" />
             <span>Consultoria Regulatória</span>
           </a>
 
@@ -398,7 +399,7 @@ function App() {
       <footer className="footer">
         <div className="container footerGrid">
           <div className="footerBrand">
-            <img src="/logo-renovera.png" alt="Renovera" />
+            <img src={logoSrc} alt="Renovera" />
             <p>
               Engenharia, energia e regulação para proteger ativos, destravar acessos e estruturar defesas técnicas no setor elétrico.
             </p>
