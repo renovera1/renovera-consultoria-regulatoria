@@ -5,13 +5,13 @@ const WHATSAPP_NUMBER = "5519996514827";
 const buildWhatsappUrl = (message: string) =>
   `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
 const whatsappLink = buildWhatsappUrl(
-  "Olá, Renovera. Recebi uma negativa da concessionária e gostaria de uma análise técnica-regulatória. Posso enviar o parecer para avaliação?"
+  "OlÃƒÂ¡, Renovera. Recebi uma negativa da concessionÃƒÂ¡ria e gostaria de uma anÃƒÂ¡lise tÃƒÂ©cnica-regulatÃƒÂ³ria. Posso enviar o parecer para avaliaÃƒÂ§ÃƒÂ£o?"
 );
 const screeningWhatsappLink = buildWhatsappUrl(
-  "Olá, Renovera. Quero enviar uma negativa para análise técnica-regulatória e entender o potencial de contestação do meu caso."
+  "OlÃƒÂ¡, Renovera. Quero enviar uma negativa para anÃƒÂ¡lise tÃƒÂ©cnica-regulatÃƒÂ³ria e entender o potencial de contestaÃƒÂ§ÃƒÂ£o do meu caso."
 );
 const universalWhatsappLink = buildWhatsappUrl(
-  "Olá, Renovera. Gostaria de receber uma análise técnica pelo WhatsApp."
+  "OlÃƒÂ¡, Renovera. Gostaria de receber uma anÃƒÂ¡lise tÃƒÂ©cnica pelo WhatsApp."
 );
 const logoSrc = `${import.meta.env.BASE_URL}logo-renovera.png`;
 
@@ -26,34 +26,34 @@ const getPowerScore = (powerKw: number) => {
 const services = [
   {
     number: "01",
-    title: "Defesa Contra Inversão de Fluxo de Potência",
-    text: "Pareceres técnicos e contestações jurídicas fundamentadas para reverter reprovações de microgeração e minigeração indeferidas sem demonstração técnica suficiente.",
+    title: "Defesa Contra InversÃƒÂ£o de Fluxo de PotÃƒÂªncia",
+    text: "Pareceres tÃƒÂ©cnicos e contestaÃƒÂ§ÃƒÂµes jurÃƒÂ­dicas fundamentadas para reverter reprovaÃƒÂ§ÃƒÂµes de microgeraÃƒÂ§ÃƒÂ£o e minigeraÃƒÂ§ÃƒÂ£o indeferidas sem demonstraÃƒÂ§ÃƒÂ£o tÃƒÂ©cnica suficiente.",
     cta: "Quero reverter uma negativa"
   },
   {
     number: "02",
     title: "Parecer Independente e Auditoria de Rede",
-    text: "Auditoria de estudos de fluxo, curvas de carga, ponto de análise, memória de cálculo e premissas utilizadas pela distribuidora no parecer técnico.",
-    cta: "Auditar estudo da concessionária"
+    text: "Auditoria de estudos de fluxo, curvas de carga, ponto de anÃƒÂ¡lise, memÃƒÂ³ria de cÃƒÂ¡lculo e premissas utilizadas pela distribuidora no parecer tÃƒÂ©cnico.",
+    cta: "Auditar estudo da concessionÃƒÂ¡ria"
   },
   {
     number: "03",
-    title: "Engenharia Consultiva e Regulação ANEEL",
-    text: "Interpretação estratégica da REN 1000/2021, REN 1098/2024, PRODIST e procedimentos aplicáveis para sustentar defesas administrativas robustas.",
-    cta: "Validar enquadramento regulatório"
+    title: "Engenharia Consultiva e RegulaÃƒÂ§ÃƒÂ£o ANEEL",
+    text: "InterpretaÃƒÂ§ÃƒÂ£o estratÃƒÂ©gica da REN 1000/2021, REN 1098/2024, PRODIST e procedimentos aplicÃƒÂ¡veis para sustentar defesas administrativas robustas.",
+    cta: "Validar enquadramento regulatÃƒÂ³rio"
   },
   {
     number: "04",
     title: "Riscos Operacionais e Contratos de Energia",
-    text: "Análise técnica e jurídica de contratos do Grupo A, demanda contratada, exposição tarifária, multas, energia reativa e riscos de infraestrutura.",
+    text: "AnÃƒÂ¡lise tÃƒÂ©cnica e jurÃƒÂ­dica de contratos do Grupo A, demanda contratada, exposiÃƒÂ§ÃƒÂ£o tarifÃƒÂ¡ria, multas, energia reativa e riscos de infraestrutura.",
     cta: "Mapear risco do contrato"
   }
 ];
 
 const sectors = [
   "Geradores e Desenvolvedores de Projetos",
-  "Hospitais, Clínicas e Casas de Saúde",
-  "Indústrias e Plantas de Grande Porte",
+  "Hospitais, ClÃƒÂ­nicas e Casas de SaÃƒÂºde",
+  "IndÃƒÂºstrias e Plantas de Grande Porte",
   "Fundos de Investimento e Operadores de Ativos"
 ];
 
@@ -68,7 +68,7 @@ function WhatsAppIcon() {
 
 function App() {
   const [utility, setUtility] = useState("CPFL");
-  const [restriction, setRestriction] = useState("Inversão de Fluxo");
+  const [restriction, setRestriction] = useState("InversÃƒÂ£o de Fluxo");
   const [power, setPower] = useState(75);
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
@@ -76,20 +76,20 @@ function App() {
 
   const diagnostic = useMemo(() => {
     let score = 26 + getPowerScore(power);
-    if (restriction === "Inversão de Fluxo") score += 24;
-    if (restriction === "Demanda Incompatível") score += 16;
+    if (restriction === "InversÃƒÂ£o de Fluxo") score += 24;
+    if (restriction === "Demanda IncompatÃƒÂ­vel") score += 16;
     if (["CPFL", "Neoenergia Elektro", "Cemig", "Energisa"].includes(utility)) score += 8;
 
     const capped = Math.min(score, 96);
     const level = capped >= 76 ? "alto" : capped >= 58 ? "moderado" : "inicial";
     const thesis =
-      restriction === "Inversão de Fluxo"
-        ? "verificar nexo causal, ponto correto de análise, curvas utilizadas e transparência do estudo"
-        : restriction === "Reprovação de Padrão"
-        ? "avaliar aderência normativa, exigências técnicas e proporcionalidade da reprovação"
-        : restriction === "Demanda Incompatível"
+      restriction === "InversÃƒÂ£o de Fluxo"
+        ? "verificar nexo causal, ponto correto de anÃƒÂ¡lise, curvas utilizadas e transparÃƒÂªncia do estudo"
+        : restriction === "ReprovaÃƒÂ§ÃƒÂ£o de PadrÃƒÂ£o"
+        ? "avaliar aderÃƒÂªncia normativa, exigÃƒÂªncias tÃƒÂ©cnicas e proporcionalidade da reprovaÃƒÂ§ÃƒÂ£o"
+        : restriction === "Demanda IncompatÃƒÂ­vel"
         ? "revisar demanda contratada, premissas de carga e impactos financeiros"
-        : "identificar a natureza regulatória da restrição e a estratégia de contestação";
+        : "identificar a natureza regulatÃƒÂ³ria da restriÃƒÂ§ÃƒÂ£o e a estratÃƒÂ©gia de contestaÃƒÂ§ÃƒÂ£o";
 
     return { score: capped, level, thesis };
   }, [utility, restriction, power]);
@@ -108,26 +108,26 @@ function App() {
       createdAt: new Date().toISOString()
     };
 
-    console.log("Triagem regulatória Renovera", payload);
+    console.log("Triagem regulatÃƒÂ³ria Renovera", payload);
   }
 
   return (
     <div className="page">
       <header className="header">
         <div className="container headerInner">
-          <a href="#inicio" className="brand" aria-label="Renovera Consultoria Regulatória">
+          <a href="#inicio" className="brand" aria-label="Renovera Consultoria RegulatÃƒÂ³ria">
             <img src={logoSrc} alt="Renovera" />
-            <span>Consultoria Regulatória</span>
+            <span>Consultoria RegulatÃƒÂ³ria</span>
           </a>
 
           <nav className="nav">
-            <a href="#atuacao">Áreas de Atuação</a>
-            <a href="#atuacao">Defesa Regulatória</a>
-            <a href="#legislacao">Legislação</a>
-            <a href="#triagem">Diagnóstico</a>
+            <a href="#atuacao">ÃƒÂreas de AtuaÃƒÂ§ÃƒÂ£o</a>
+            <a href="#atuacao">Defesa RegulatÃƒÂ³ria</a>
+            <a href="#legislacao">LegislaÃƒÂ§ÃƒÂ£o</a>
+            <a href="#triagem">DiagnÃƒÂ³stico</a>
           </nav>
 
-          <a className="headerButton" href="#triagem">Agendar Consulta Estratégica</a>
+          <a className="headerButton" href="#triagem">Agendar Consulta EstratÃƒÂ©gica</a>
         </div>
       </header>
 
@@ -136,35 +136,35 @@ function App() {
           <div className="heroAura" />
           <div className="container heroGrid">
             <div className="heroContent">
-              <span className="eyebrow">Inteligência técnica e segurança jurídica no setor elétrico</span>
-              <h1>Não aceite uma negativa de conexão sem uma defesa técnica.</h1>
+              <span className="eyebrow">InteligÃƒÂªncia tÃƒÂ©cnica e seguranÃƒÂ§a jurÃƒÂ­dica no setor elÃƒÂ©trico</span>
+              <h1>NÃƒÂ£o aceite uma negativa de conexÃƒÂ£o sem uma defesa tÃƒÂ©cnica.</h1>
               <p>
-                A Renovera atua na fronteira entre engenharia elétrica, regulação ANEEL e estratégia jurídica para proteger
-                ativos, destravar acessos e confrontar decisões arbitrárias de concessionárias.
+                A Renovera atua na fronteira entre engenharia elÃƒÂ©trica, regulaÃƒÂ§ÃƒÂ£o ANEEL e estratÃƒÂ©gia jurÃƒÂ­dica para proteger
+                ativos, destravar acessos e confrontar decisÃƒÂµes arbitrÃƒÂ¡rias de concessionÃƒÂ¡rias.
               </p>
 
               <div className="heroActions">
-                <a className="primaryButton" href="#triagem">Analisar meu caso regulatório</a>
+                <a className="primaryButton" href="#triagem">Analisar meu caso regulatÃƒÂ³rio</a>
                 <a className="secondaryButton" href="#atuacao">Ver linhas de defesa</a>
               </div>
 
               <div className="heroStats">
                 <div>
                   <strong>REN 1000/2021</strong>
-                  <span>fundamentação regulatória e contestação administrativa</span>
+                  <span>fundamentaÃƒÂ§ÃƒÂ£o regulatÃƒÂ³ria e contestaÃƒÂ§ÃƒÂ£o administrativa</span>
                 </div>
                 <div>
-                  <strong>Fluxo de potência</strong>
-                  <span>auditoria técnica de curvas, premissas e ponto de análise</span>
+                  <strong>Fluxo de potÃƒÂªncia</strong>
+                  <span>auditoria tÃƒÂ©cnica de curvas, premissas e ponto de anÃƒÂ¡lise</span>
                 </div>
                 <div>
                   <strong>ART / CREA</strong>
-                  <span>parecer independente com rastreabilidade técnica</span>
+                  <span>parecer independente com rastreabilidade tÃƒÂ©cnica</span>
                 </div>
               </div>
             </div>
 
-            <div className="heroVisual" aria-label="Interface abstrata de defesa regulatória">
+            <div className="heroVisual" aria-label="Interface abstrata de defesa regulatÃƒÂ³ria">
               <div className="regCard">
                 <div className="regTop">
                   <span>Renovera Defense Hub</span>
@@ -185,21 +185,21 @@ function App() {
 
                 <div className="casePanel">
                   <span>Status preliminar</span>
-                  <strong>Negativa contestável</strong>
-                  <p>Indícios de ausência de memória de cálculo, transparência insuficiente e premissa técnica auditável.</p>
+                  <strong>Negativa contestÃƒÂ¡vel</strong>
+                  <p>IndÃƒÂ­cios de ausÃƒÂªncia de memÃƒÂ³ria de cÃƒÂ¡lculo, transparÃƒÂªncia insuficiente e premissa tÃƒÂ©cnica auditÃƒÂ¡vel.</p>
                 </div>
 
                 <div className="regList">
-                  <div><span>Art. 73</span><strong>Alternativas técnicas</strong></div>
-                  <div><span>Art. 78</span><strong>Transparência</strong></div>
-                  <div><span>§1º</span><strong>Nexo causal</strong></div>
+                  <div><span>Art. 73</span><strong>Alternativas tÃƒÂ©cnicas</strong></div>
+                  <div><span>Art. 78</span><strong>TransparÃƒÂªncia</strong></div>
+                  <div><span>Ã‚Â§1Ã‚Âº</span><strong>Nexo causal</strong></div>
                 </div>
               </div>
 
               <div className="floatingLegal">
-                <span>Próxima ação</span>
+                <span>PrÃƒÂ³xima aÃƒÂ§ÃƒÂ£o</span>
                 <strong>Defesa administrativa</strong>
-                <p>Reanálise com base técnica e regulatória.</p>
+                <p>ReanÃƒÂ¡lise com base tÃƒÂ©cnica e regulatÃƒÂ³ria.</p>
               </div>
             </div>
           </div>
@@ -210,11 +210,11 @@ function App() {
         <section className="screening" id="triagem">
           <div className="container screeningGrid">
             <div className="screeningIntro">
-              <span className="eyebrow light">Triagem regulatória prévia</span>
-              <h2>Descubra se a negativa merece contestação técnica.</h2>
+              <span className="eyebrow light">Triagem regulatÃƒÂ³ria prÃƒÂ©via</span>
+              <h2>Descubra se a negativa merece contestaÃƒÂ§ÃƒÂ£o tÃƒÂ©cnica.</h2>
               <p>
-                Informe os dados básicos do caso. A ferramenta gera um diagnóstico preliminar e coleta os contatos para a
-                equipe Renovera avaliar a melhor estratégia de defesa.
+                Informe os dados bÃƒÂ¡sicos do caso. A ferramenta gera um diagnÃƒÂ³stico preliminar e coleta os contatos para a
+                equipe Renovera avaliar a melhor estratÃƒÂ©gia de defesa.
               </p>
 
               <div className="diagnosticCard">
@@ -223,7 +223,7 @@ function App() {
                   <span>/100</span>
                 </div>
                 <div>
-                  <span>Potencial de contestação</span>
+                  <span>Potencial de contestaÃƒÂ§ÃƒÂ£o</span>
                   <h3>{diagnostic.level}</h3>
                   <p>Prioridade: {diagnostic.thesis}.</p>
                 </div>
@@ -233,7 +233,7 @@ function App() {
             <form className="leadForm" onSubmit={handleSubmit}>
               <div className="formGrid">
                 <label>
-                  Concessionária envolvida
+                  ConcessionÃƒÂ¡ria envolvida
                   <select value={utility} onChange={(event) => setUtility(event.target.value)}>
                     <option>CPFL</option>
                     <option>Neoenergia Elektro</option>
@@ -244,17 +244,17 @@ function App() {
                 </label>
 
                 <label>
-                  Tipo de restrição
+                  Tipo de restriÃƒÂ§ÃƒÂ£o
                   <select value={restriction} onChange={(event) => setRestriction(event.target.value)}>
-                    <option>Inversão de Fluxo</option>
-                    <option>Reprovação de Padrão</option>
-                    <option>Demanda Incompatível</option>
+                    <option>InversÃƒÂ£o de Fluxo</option>
+                    <option>ReprovaÃƒÂ§ÃƒÂ£o de PadrÃƒÂ£o</option>
+                    <option>Demanda IncompatÃƒÂ­vel</option>
                     <option>Outra</option>
                   </select>
                 </label>
 
                 <label>
-                  Potência (kW)
+                  PotÃƒÂªncia (kW)
                   <input type="number" min="0" step="0.01" value={power} onChange={(event) => setPower(Number(event.target.value))} placeholder="Ex.: 7.5" />
                 </label>
 
@@ -269,13 +269,13 @@ function App() {
                 </label>
               </div>
 
-              <button className="formButton" type="submit">Solicitar análise técnica-regulatória</button>
-              <a className="whatsButton" href={screeningWhatsappLink} target="_blank" rel="noreferrer" aria-label="Receber análise pelo WhatsApp">Enviar negativa para análise</a>
+              <button className="formButton" type="submit">Solicitar anÃƒÂ¡lise tÃƒÂ©cnica-regulatÃƒÂ³ria</button>
+              <a className="whatsButton" href={screeningWhatsappLink} target="_blank" rel="noreferrer" aria-label="Receber anÃƒÂ¡lise pelo WhatsApp">Enviar negativa para anÃƒÂ¡lise</a>
 
               {submitted && (
                 <div className="successBox">
                   <strong>Triagem registrada.</strong>
-                  <p>Substitua o console.log por integração com WhatsApp, CRM, n8n, Make ou Google Sheets.</p>
+                  <p>Substitua o console.log por integraÃƒÂ§ÃƒÂ£o com WhatsApp, CRM, n8n, Make ou Google Sheets.</p>
                 </div>
               )}
             </form>
@@ -284,20 +284,20 @@ function App() {
 
         <section className="authorityBar">
           <div className="container authorityGrid">
-            <div><span>Base normativa</span><strong>REN 1000/2021 · REN 1098/2024 · PRODIST</strong></div>
-            <div><span>Defesa técnica</span><strong>Fluxo · Carga · Injeção · Qualidade</strong></div>
-            <div><span>Entregável</span><strong>Parecer · Contestação · Recurso · Auditoria</strong></div>
+            <div><span>Base normativa</span><strong>REN 1000/2021 Ã‚Â· REN 1098/2024 Ã‚Â· PRODIST</strong></div>
+            <div><span>Defesa tÃƒÂ©cnica</span><strong>Fluxo Ã‚Â· Carga Ã‚Â· InjeÃƒÂ§ÃƒÂ£o Ã‚Â· Qualidade</strong></div>
+            <div><span>EntregÃƒÂ¡vel</span><strong>Parecer Ã‚Â· ContestaÃƒÂ§ÃƒÂ£o Ã‚Â· Recurso Ã‚Â· Auditoria</strong></div>
           </div>
         </section>
 
         <section className="services" id="atuacao">
           <div className="container">
             <div className="sectionHeader center">
-              <span className="eyebrow light">Áreas de atuação</span>
-              <h2>Consultoria regulatória para casos em que o prejuízo técnico vira risco jurídico.</h2>
+              <span className="eyebrow light">ÃƒÂreas de atuaÃƒÂ§ÃƒÂ£o</span>
+              <h2>Consultoria regulatÃƒÂ³ria para casos em que o prejuÃƒÂ­zo tÃƒÂ©cnico vira risco jurÃƒÂ­dico.</h2>
               <p>
-                Estruturamos defesas com linguagem de engenharia e força administrativa para contestar negativas, reduzir
-                riscos e sustentar decisões de investimento no setor elétrico.
+                Estruturamos defesas com linguagem de engenharia e forÃƒÂ§a administrativa para contestar negativas, reduzir
+                riscos e sustentar decisÃƒÂµes de investimento no setor elÃƒÂ©trico.
               </p>
             </div>
 
@@ -307,7 +307,7 @@ function App() {
                   <span>{service.number}</span>
                   <h3>{service.title}</h3>
                   <p>{service.text}</p>
-                  <a className="cardCta" href="#triagem">{service.cta} →</a>
+                  <a className="cardCta" href="#triagem">{service.cta} Ã¢â€ â€™</a>
                 </article>
               ))}
             </div>
@@ -317,42 +317,42 @@ function App() {
         <section className="framework" id="legislacao">
           <div className="container frameworkShell">
             <div className="frameworkIntro">
-              <span className="eyebrow light">Arsenal regulatório</span>
-              <h2>Transformamos norma técnica em argumento de destravamento.</h2>
+              <span className="eyebrow light">Arsenal regulatÃƒÂ³rio</span>
+              <h2>Transformamos norma tÃƒÂ©cnica em argumento de destravamento.</h2>
               <p>
-                A Renovera cruza legislação, engenharia de rede e prova documental para mostrar quando a negativa da
-                distribuidora não demonstra nexo causal, transparência ou alternativa técnica adequada.
+                A Renovera cruza legislaÃƒÂ§ÃƒÂ£o, engenharia de rede e prova documental para mostrar quando a negativa da
+                distribuidora nÃƒÂ£o demonstra nexo causal, transparÃƒÂªncia ou alternativa tÃƒÂ©cnica adequada.
               </p>
             </div>
 
             <div className="frameworkGrid">
               <div className="lawCard featured">
-                <span>Estratégia central</span>
-                <h3>Da reprovação genérica à tese técnica defensável.</h3>
+                <span>EstratÃƒÂ©gia central</span>
+                <h3>Da reprovaÃƒÂ§ÃƒÂ£o genÃƒÂ©rica ÃƒÂ  tese tÃƒÂ©cnica defensÃƒÂ¡vel.</h3>
                 <p>
-                  O estudo é reavaliado por ponto de análise, curva de carga, memória de cálculo, premissa de geração,
-                  carregamento, tensão e impacto real no sistema.
+                  O estudo ÃƒÂ© reavaliado por ponto de anÃƒÂ¡lise, curva de carga, memÃƒÂ³ria de cÃƒÂ¡lculo, premissa de geraÃƒÂ§ÃƒÂ£o,
+                  carregamento, tensÃƒÂ£o e impacto real no sistema.
                 </p>
               </div>
               <div className="lawCard">
                 <span>Art. 73</span>
                 <h3>Alternativas e menor custo global</h3>
-                <p>Exigência de avaliação de soluções técnicas viáveis antes de impor restrições, obras ou custos desproporcionais.</p>
+                <p>ExigÃƒÂªncia de avaliaÃƒÂ§ÃƒÂ£o de soluÃƒÂ§ÃƒÂµes tÃƒÂ©cnicas viÃƒÂ¡veis antes de impor restriÃƒÂ§ÃƒÂµes, obras ou custos desproporcionais.</p>
               </div>
               <div className="lawCard">
                 <span>Art. 78</span>
-                <h3>Transparência do estudo</h3>
-                <p>Pedido de premissas, dados, memória de cálculo e fundamentação técnica auditável.</p>
+                <h3>TransparÃƒÂªncia do estudo</h3>
+                <p>Pedido de premissas, dados, memÃƒÂ³ria de cÃƒÂ¡lculo e fundamentaÃƒÂ§ÃƒÂ£o tÃƒÂ©cnica auditÃƒÂ¡vel.</p>
               </div>
               <div className="lawCard">
-                <span>§1º Art. 73</span>
-                <h3>Nexo causal da inversão</h3>
-                <p>A restrição precisa decorrer da conexão solicitada, não de condição preexistente imputada ao acessante.</p>
+                <span>Ã‚Â§1Ã‚Âº Art. 73</span>
+                <h3>Nexo causal da inversÃƒÂ£o</h3>
+                <p>A restriÃƒÂ§ÃƒÂ£o precisa decorrer da conexÃƒÂ£o solicitada, nÃƒÂ£o de condiÃƒÂ§ÃƒÂ£o preexistente imputada ao acessante.</p>
               </div>
               <div className="lawCard">
                 <span>PRODIST</span>
                 <h3>Qualidade e impacto real</h3>
-                <p>Análise de tensão, carregamento, proteção, qualidade do produto e operação da rede.</p>
+                <p>AnÃƒÂ¡lise de tensÃƒÂ£o, carregamento, proteÃƒÂ§ÃƒÂ£o, qualidade do produto e operaÃƒÂ§ÃƒÂ£o da rede.</p>
               </div>
             </div>
           </div>
@@ -363,11 +363,11 @@ function App() {
             <div className="splitHeader">
               <div>
                 <span className="eyebrow light">Quem protegemos</span>
-                <h2>Defesa regulatória para ativos que não podem ficar parados.</h2>
+                <h2>Defesa regulatÃƒÂ³ria para ativos que nÃƒÂ£o podem ficar parados.</h2>
               </div>
               <p>
-                A atuação é voltada a decisores que precisam reduzir incerteza técnica, proteger CAPEX, evitar atrasos de
-                conexão e sustentar decisões perante concessionárias, ouvidorias e ANEEL.
+                A atuaÃƒÂ§ÃƒÂ£o ÃƒÂ© voltada a decisores que precisam reduzir incerteza tÃƒÂ©cnica, proteger CAPEX, evitar atrasos de
+                conexÃƒÂ£o e sustentar decisÃƒÂµes perante concessionÃƒÂ¡rias, ouvidorias e ANEEL.
               </p>
             </div>
 
@@ -377,10 +377,10 @@ function App() {
                   <span>0{index + 1}</span>
                   <h3>{sector}</h3>
                   <p>
-                    {index === 0 && "Revisão de pareceres, inversão de fluxo, ponto de conexão, fila de acesso e exigências técnicas da distribuidora."}
-                    {index === 1 && "Segurança operacional para unidades críticas, com análise de contratos, estabilidade elétrica e continuidade de fornecimento."}
-                    {index === 2 && "Mitigação de multas, demanda contratada, obras impostas, restrições de conexão e riscos em infraestrutura elétrica."}
-                    {index === 3 && "Due diligence regulatória antes de aporte, aquisição, expansão, retrofit ou estruturação de ativos de energia."}
+                    {index === 0 && "RevisÃƒÂ£o de pareceres, inversÃƒÂ£o de fluxo, ponto de conexÃƒÂ£o, fila de acesso e exigÃƒÂªncias tÃƒÂ©cnicas da distribuidora."}
+                    {index === 1 && "SeguranÃƒÂ§a operacional para unidades crÃƒÂ­ticas, com anÃƒÂ¡lise de contratos, estabilidade elÃƒÂ©trica e continuidade de fornecimento."}
+                    {index === 2 && "MitigaÃƒÂ§ÃƒÂ£o de multas, demanda contratada, obras impostas, restriÃƒÂ§ÃƒÂµes de conexÃƒÂ£o e riscos em infraestrutura elÃƒÂ©trica."}
+                    {index === 3 && "Due diligence regulatÃƒÂ³ria antes de aporte, aquisiÃƒÂ§ÃƒÂ£o, expansÃƒÂ£o, retrofit ou estruturaÃƒÂ§ÃƒÂ£o de ativos de energia."}
                   </p>
                 </article>
               ))}
@@ -391,11 +391,11 @@ function App() {
         <section className="finalCta">
           <div className="container finalCtaBox">
             <div className="finalCtaContent">
-              <span className="eyebrow">Defesa antes do prejuízo</span>
-              <h2>Antes de aceitar a negativa, peça uma segunda leitura técnica.</h2>
+              <span className="eyebrow">Defesa antes do prejuÃƒÂ­zo</span>
+              <h2>Antes de aceitar a negativa, peÃƒÂ§a uma segunda leitura tÃƒÂ©cnica.</h2>
               <p>
-                Envie o parecer da concessionária para uma análise preliminar. A Renovera verifica indícios de falha técnica,
-                ausência de memória de cálculo, erro de ponto de análise e possibilidade de contestação administrativa.
+                Envie o parecer da concessionÃƒÂ¡ria para uma anÃƒÂ¡lise preliminar. A Renovera verifica indÃƒÂ­cios de falha tÃƒÂ©cnica,
+                ausÃƒÂªncia de memÃƒÂ³ria de cÃƒÂ¡lculo, erro de ponto de anÃƒÂ¡lise e possibilidade de contestaÃƒÂ§ÃƒÂ£o administrativa.
               </p>
             </div>
             <div className="finalCtaActions">
@@ -411,41 +411,38 @@ function App() {
           <div className="footerBrand">
             <img src={logoSrc} alt="Renovera" />
             <p>
-              Engenharia, energia e regulação para proteger ativos, destravar acessos e estruturar defesas técnicas no setor elétrico.
+              Engenharia, energia e regulaÃƒÂ§ÃƒÂ£o para proteger ativos, destravar acessos e estruturar defesas tÃƒÂ©cnicas no setor elÃƒÂ©trico.
             </p>
           </div>
 
-          <div className="footerCol footerGridThree">
-            <div className="footerPanel">
-              <h4><span className="footerIcon">01</span>ENDEREÇO</h4>
-              <p>Rua Visconde do Rio Branco, n.106, Centro, São João da Boa Vista - SP, CEP: 13870-180</p>
-            </div>
-            <div className="footerPanel">
-              <h4><span className="footerIcon">02</span>TELEFONES</h4>
-              <a href="https://wa.me/5519996514827" target="_blank" rel="noreferrer">+55 (19) 99651-4827</a>
-              <a href="tel:+551931950160">+55 (19) 3195-0160</a>
-            </div>
-            <div className="footerPanel">
-              <h4><span className="footerIcon">03</span>E-MAIL</h4>
-              <a href="mailto:contato@renovera.com.br">contato@renovera.com.br</a>
-              <p>Consultoria técnica, regulação ANEEL e leitura independente de pareceres.</p>
-            </div>
+          <div className="footerCol">
+            <h4>Menu</h4>
+            <a href="#atuacao">Ãreas de atuaÃ§Ã£o</a>
+            <a href="#legislacao">LegislaÃ§Ã£o</a>
+            <a href="#triagem">Triagem regulatÃ³ria</a>
+            <a href="#inicio">Voltar ao inÃ­cio</a>
           </div>
-        </div>
 
-        <div className="container ecosystemLinks">
-          <a href="https://renovera1.github.io/renovera-consultoria-regulatoria/" target="_blank" rel="noreferrer">Consultoria Regulatória</a>
-          <a href="https://renovera1.github.io/renovera-projetos-eletricos/" target="_blank" rel="noreferrer">Projetos Elétricos</a>
-          <a href="https://renovera1.github.io/renovera-energia-solar/" target="_blank" rel="noreferrer">Energia Solar</a>
-          <a href="https://renovera1.github.io/renovera-eletroposto/" target="_blank" rel="noreferrer">Eletropostos</a>
-        </div>
+          <div className="footerCol">
+            <h4>Contato</h4>
+            <a href={whatsappLink} target="_blank" rel="noreferrer">WhatsApp comercial</a>
+            <a href="mailto:contato@renovera.com.br">contato@renovera.com.br</a>
+            <p>R. Visc. de Rio Branco, 106, SÃ£o JoÃ£o da Boa Vista - SP</p>
+          </div>
 
+          <div className="footerCol">
+            <h4>RegulaÃ§Ã£o</h4>
+            <p>Consultoria tÃ©cnica e regulaÃ§Ã£o de ativos.</p>
+            <p>CREA-SP / CREA-MG Â· ANEEL Â· REN 1000/2021 Â· PRODIST</p>
+          </div>
+
+        </div>
         <div className="container copyright">
-          © 2026 Renovera. Todos os direitos reservados.
+          Ã‚Â© 2026 Renovera. Todos os direitos reservados.
         </div>
       </footer>
 
-      <a className="whatsappFloat" href={universalWhatsappLink} target="_blank" rel="noreferrer" aria-label="Receber análise pelo WhatsApp">
+      <a className="whatsappFloat" href={whatsappLink} target="_blank" rel="noreferrer" aria-label="Falar com a Renovera no WhatsApp">
         <WhatsAppIcon />
       </a>
       <LiveEditor namespace="renovera-regulatoria-design" />
