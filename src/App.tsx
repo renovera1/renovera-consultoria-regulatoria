@@ -1,8 +1,27 @@
 import { useMemo, useState } from "react";
 import LiveEditor from "./LiveEditor";
 
-const whatsappLink = "https://wa.me/5519996514827?text=Ol%C3%A1%2C%20Renovera.%20Recebi%20uma%20negativa%2Frestri%C3%A7%C3%A3o%20da%20concession%C3%A1ria%20e%20gostaria%20de%20uma%20an%C3%A1lise%20t%C3%A9cnica-regulat%C3%B3ria.%20Posso%20enviar%20o%20parecer%20para%20avalia%C3%A7%C3%A3o%3F";
+const WHATSAPP_NUMBER = "5519996514827";
+const buildWhatsappUrl = (message: string) =>
+  `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
+const whatsappLink = buildWhatsappUrl(
+  "Olá, Renovera. Recebi uma negativa da concessionária e gostaria de uma análise técnica-regulatória. Posso enviar o parecer para avaliação?"
+);
+const screeningWhatsappLink = buildWhatsappUrl(
+  "Olá, Renovera. Quero enviar uma negativa para análise técnica-regulatória e entender o potencial de contestação do meu caso."
+);
+const universalWhatsappLink = buildWhatsappUrl(
+  "Olá, Renovera. Gostaria de receber uma análise técnica pelo WhatsApp."
+);
 const logoSrc = `${import.meta.env.BASE_URL}logo-renovera.png`;
+
+const getPowerScore = (powerKw: number) => {
+  if (powerKw <= 7.5) return 30;
+  if (powerKw <= 15) return 25;
+  if (powerKw <= 30) return 18;
+  if (powerKw <= 75) return 12;
+  return 6;
+};
 
 const services = [
   {
@@ -52,15 +71,13 @@ function App() {
   const [restriction, setRestriction] = useState("Inversão de Fluxo");
   const [power, setPower] = useState(75);
   const [email, setEmail] = useState("");
-  const [cnpj, setCnpj] = useState("");
   const [phone, setPhone] = useState("");
   const [submitted, setSubmitted] = useState(false);
 
   const diagnostic = useMemo(() => {
-    let score = 42;
+    let score = 26 + getPowerScore(power);
     if (restriction === "Inversão de Fluxo") score += 24;
     if (restriction === "Demanda Incompatível") score += 16;
-    if (power >= 75) score += 18;
     if (["CPFL", "Neoenergia Elektro", "Cemig", "Energisa"].includes(utility)) score += 8;
 
     const capped = Math.min(score, 96);
@@ -86,7 +103,6 @@ function App() {
       restriction,
       power,
       email,
-      cnpj,
       phone,
       diagnostic,
       createdAt: new Date().toISOString()
@@ -238,8 +254,8 @@ function App() {
                 </label>
 
                 <label>
-                  Potência / demanda do ativo
-                  <input type="number" min="0" step="0.01" value={power} onChange={(event) => setPower(Number(event.target.value))} />
+                  Potência (kW)
+                  <input type="number" min="0" step="0.01" value={power} onChange={(event) => setPower(Number(event.target.value))} placeholder="Ex.: 7.5" />
                 </label>
 
                 <label>
@@ -248,18 +264,13 @@ function App() {
                 </label>
 
                 <label>
-                  CNPJ
-                  <input type="text" value={cnpj} onChange={(event) => setCnpj(event.target.value)} placeholder="00.000.000/0001-00" required />
-                </label>
-
-                <label>
                   Telefone / WhatsApp
                   <input type="tel" value={phone} onChange={(event) => setPhone(event.target.value)} placeholder="(00) 00000-0000" required />
                 </label>
               </div>
 
-              <button className="formButton" type="submit">Solicitar análise de viabilidade jurídica</button>
-              <a className="whatsButton" href={whatsappLink} target="_blank">Prefiro enviar pelo WhatsApp</a>
+              <button className="formButton" type="submit">Solicitar análise técnica-regulatória</button>
+              <a className="whatsButton" href={screeningWhatsappLink} target="_blank" rel="noreferrer" aria-label="Receber análise pelo WhatsApp">Enviar negativa para análise</a>
 
               {submitted && (
                 <div className="successBox">
@@ -296,7 +307,7 @@ function App() {
                   <span>{service.number}</span>
                   <h3>{service.title}</h3>
                   <p>{service.text}</p>
-                  <a href="#triagem">{service.cta} →</a>
+                  <a className="cardCta" href="#triagem">{service.cta} →</a>
                 </article>
               ))}
             </div>
@@ -388,8 +399,8 @@ function App() {
               </p>
             </div>
             <div className="finalCtaActions">
-              <a className="primaryButton" href="#triagem">Analisar minha negativa agora</a>
-              <a className="secondaryButton" href={whatsappLink} target="_blank">Falar com especialista</a>
+              <a className="primaryButton" href={whatsappLink} target="_blank" rel="noreferrer">Analisar minha negativa agora</a>
+              <a className="secondaryButton" href={whatsappLink} target="_blank" rel="noreferrer">Falar com especialista</a>
             </div>
           </div>
         </section>
@@ -404,26 +415,29 @@ function App() {
             </p>
           </div>
 
-          <div className="footerCol">
-            <h4>Menu</h4>
-            <a href="#atuacao">Áreas de atuação</a>
-            <a href="#legislacao">Legislação</a>
-            <a href="#triagem">Triagem regulatória</a>
-            <a href="#inicio">Voltar ao início</a>
+          <div className="footerCol footerGridThree">
+            <div className="footerPanel">
+              <h4><span className="footerIcon">01</span>ENDEREÇO</h4>
+              <p>Rua Visconde do Rio Branco, n.106, Centro, São João da Boa Vista - SP, CEP: 13870-180</p>
+            </div>
+            <div className="footerPanel">
+              <h4><span className="footerIcon">02</span>TELEFONES</h4>
+              <a href="https://wa.me/5519996514827" target="_blank" rel="noreferrer">+55 (19) 99651-4827</a>
+              <a href="tel:+551931950160">+55 (19) 3195-0160</a>
+            </div>
+            <div className="footerPanel">
+              <h4><span className="footerIcon">03</span>E-MAIL</h4>
+              <a href="mailto:contato@renovera.com.br">contato@renovera.com.br</a>
+              <p>Consultoria técnica, regulação ANEEL e leitura independente de pareceres.</p>
+            </div>
           </div>
+        </div>
 
-          <div className="footerCol">
-            <h4>Contato</h4>
-            <a href={whatsappLink} target="_blank">WhatsApp comercial</a>
-            <a href="mailto:contato@renovera.com.br">contato@renovera.com.br</a>
-            <p>R. Visc. de Rio Branco, 106, São João da Boa Vista - SP</p>
-          </div>
-
-          <div className="footerCol">
-            <h4>Regulação</h4>
-            <p>Consultoria técnica e regulação de ativos.</p>
-            <p>CREA-SP / CREA-MG · ANEEL · REN 1000/2021 · PRODIST</p>
-          </div>
+        <div className="container ecosystemLinks">
+          <a href="https://renovera1.github.io/renovera-consultoria-regulatoria/" target="_blank" rel="noreferrer">Consultoria Regulatória</a>
+          <a href="https://renovera1.github.io/renovera-projetos-eletricos/" target="_blank" rel="noreferrer">Projetos Elétricos</a>
+          <a href="https://renovera1.github.io/renovera-energia-solar/" target="_blank" rel="noreferrer">Energia Solar</a>
+          <a href="https://renovera1.github.io/renovera-eletroposto/" target="_blank" rel="noreferrer">Eletropostos</a>
         </div>
 
         <div className="container copyright">
@@ -431,7 +445,7 @@ function App() {
         </div>
       </footer>
 
-      <a className="whatsappFloat" href={whatsappLink} target="_blank" rel="noreferrer" aria-label="Falar com a Renovera no WhatsApp">
+      <a className="whatsappFloat" href={universalWhatsappLink} target="_blank" rel="noreferrer" aria-label="Receber análise pelo WhatsApp">
         <WhatsAppIcon />
       </a>
       <LiveEditor namespace="renovera-regulatoria-design" />
